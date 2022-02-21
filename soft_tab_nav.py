@@ -22,7 +22,6 @@ class SoftTabNavListener(sublime_plugin.EventListener):
 
         has_active_selection = min([abs(x.b - x.a) for x in selection]) > 1
         is_extending_selection = 'extend' in args and args['extend']
-
         if has_active_selection and not is_extending_selection:
             return None
 
@@ -30,49 +29,49 @@ class SoftTabNavListener(sublime_plugin.EventListener):
         selection_end = selection[0].b
         tab_size = self.view_settings.get('tab_size')
 
-        beginning_of_caret_line = view.line(selection_end).a
+        beginning_of_cursor_line = view.line(selection_end).a
 
         selection_is_at_end_of_tab_sequence = (
-            (selection_end - beginning_of_caret_line) % tab_size == 0 and
+            (selection_end - beginning_of_cursor_line) % tab_size == 0 and
             view.substr(sublime.Region(
-                beginning_of_caret_line,
+                beginning_of_cursor_line,
                 selection_end
-            )) == " " * (selection_end - beginning_of_caret_line)
+            )) == " " * (selection_end - beginning_of_cursor_line)
         )
+        if not selection_is_at_end_of_tab_sequence:
+            return None
 
-        if selection_is_at_end_of_tab_sequence:
-            move_direction = 1 if args['forward'] else -1
-            next_block_of_characters = view.substr(sublime.Region(
-                selection_end,
-                selection_end + move_direction * tab_size
-            ))
-            caret_will_move_over_tab = (
-                next_block_of_characters == " " * tab_size
+        move_direction = 1 if args['forward'] else -1
+
+        text_in_next_tab_block = view.substr(sublime.Region(
+            selection_end,
+            selection_end + move_direction * tab_size
+        ))
+        cursor_will_move_into_tab = (
+            text_in_next_tab_block == " " * tab_size
+        )
+        if not cursor_will_move_into_tab:
+            return None
+
+        if args['forward']:
+            next_selection_overlaps_start = (
+                selection_end < selection_start and
+                selection_start < selection_end + tab_size
             )
+        else:
+            next_selection_overlaps_start = (
+                selection_start < selection_end and
+                selection_end - tab_size < selection_start
+            )
+        if next_selection_overlaps_start:
+            return None
 
-            if args['forward']:
-                next_selection_overlaps_start = (
-                    selection_end < selection_start and
-                    selection_start < selection_end + tab_size
-                )
-            else:
-                next_selection_overlaps_start = (
-                    selection_start < selection_end and
-                    selection_end - tab_size < selection_start
-                )
-
-            if caret_will_move_over_tab and not next_selection_overlaps_start:
-                if is_extending_selection:
-                    next_selection = (
-                        selection_start,
-                        selection_end + move_direction * (tab_size - 1)
-                    )
-                else:
-                    next_selection = (
-                        selection_end + move_direction * (tab_size - 1),
-                        selection_end + move_direction * (tab_size - 1)
-                    )
-                selection.clear()
-                selection.add(
-                    sublime.Region(*next_selection)
-                )
+        next_selection_end = selection_end + move_direction * (tab_size - 1)
+        next_selection_start = (
+            selection_start if is_extending_selection else next_selection_end
+        )
+        selection.clear()
+        selection.add(sublime.Region(
+            next_selection_start,
+            next_selection_end
+        ))
