@@ -2,7 +2,7 @@ import sublime
 import sublime_plugin
 
 
-class SoftTabNavListener(sublime_plugin.EventListener):
+class AtomicSoftTabNavListener(sublime_plugin.EventListener):
     view_settings = None
 
 
