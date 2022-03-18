@@ -16,7 +16,7 @@ By default, Sublime Text does not visually distinguish tabs and soft tabs so it 
 
     {"draw_white_space": "all"}
 
-## Functions
+## Functionality
 
 The functionality of this package is simple. When the text cursor encounters a soft tab during arrow key input, this plugin will modify the arrow key input accordingly. The following are the arrow key input modification details:
 
