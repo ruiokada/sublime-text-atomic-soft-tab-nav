@@ -2,12 +2,15 @@ import sublime
 import sublime_plugin
 
 
-class AtomicSoftTabNavListener(sublime_plugin.EventListener):
+# Main Input Event Listener
+class SoftTabNavListener(sublime_plugin.EventListener):
     view_settings = None
+    plugin_settings = None
 
 
     def on_activated(self, view):
         self.view_settings = view.settings()
+        self.plugin_settings = sublime.load_settings('Atomic Soft Tab Nav.sublime-settings')
 
     def on_text_command(self, view, command_name, args):
         if not self.view_settings.get('translate_tabs_to_spaces'):
@@ -74,7 +77,7 @@ class AtomicSoftTabNavListener(sublime_plugin.EventListener):
                 next_selection_start,
                 next_selection_end
             ))
-        elif args.get('by') == 'lines' and self.view_settings.get('astn_enable_line_nav'):
+        elif args.get('by') == 'lines' and self.plugin_settings.get('enable_line_nav'):
             """
             Handles the case when the cursor moves onto a soft tab
              from a line above or below. In this case we programatically
@@ -123,3 +126,28 @@ class AtomicSoftTabNavListener(sublime_plugin.EventListener):
                         'forward': position_in_block >= tab_size // 2,
                         'by': 'characters'
                     })
+
+
+# Window Commands of Preferences
+class AtomicSoftTabNavEditSettingsCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        self.window.run_command(
+            'edit_settings',
+            {
+                "base_file": "${packages}/Atomic Soft Tab Nav/Atomic Soft Tab Nav.sublime-settings",
+                "default":
+                    "// See the left pane for the list of settings and valid values\n"
+                    "{\n"
+                    '    "enable_line_nav": false$0\n'
+                    "}\n"
+            }
+        )
+
+
+class AtomicSoftTabNavSetLineNavSettingsCommand(sublime_plugin.WindowCommand):
+    def run(self, **args):
+        if 'enable' in args:
+            settings = sublime.load_settings('Atomic Soft Tab Nav.sublime-settings')
+            settings.set('enable_line_nav', args['enable'])
+            sublime.save_settings('Atomic Soft Tab Nav.sublime-settings')
+

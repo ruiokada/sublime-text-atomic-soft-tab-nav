@@ -1,0 +1,20 @@
+[
+    {
+        "caption": "Atomic Soft Tab Nav: Enable Line Navigation",
+        "command": "atomic_soft_tab_nav_set_line_nav_settings",
+        "args": {
+            "enable": true
+        }
+    },
+    {
+        "caption": "Atomic Soft Tab Nav: Disable Line Navigation",
+        "command": "atomic_soft_tab_nav_set_line_nav_settings",
+        "args": {
+            "enable": false
+        }
+    },
+    {
+        "caption": "Preferences: Atomic Soft Tab Nav Settings",
+        "command": "atomic_soft_tab_nav_edit_settings"
+    }
+]
