@@ -4,7 +4,7 @@ In Sublime Text, soft tabs (multiple spaces used as tabs) require as many arrow 
 
 ![Standard Demo](https://raw.githubusercontent.com/ruiokada/sublime-text-atomic-soft-tab-nav/assets/demo.gif)
 
-Set `astn_enable_line_nav` to `true` in your Sublime Text settings file to enable atomic soft tabs when navigation by lines:
+Set `enable_line_nav` to `true` in Atomic Soft Tab Nav plugin settings (access preferences via Command Palette or through the Preferences menu item) to enable atomic soft tabs when navigation by lines:
 
 ![With 'astn_enable_line_nav' True Demo](https://raw.githubusercontent.com/ruiokada/sublime-text-atomic-soft-tab-nav/assets/demo-by-lines.gif)
 
@@ -23,7 +23,7 @@ The functionality of this package is simple. When the text cursor encounters a s
 * Soft tabs are assumed to appear only at the beginning of lines so multiple spaces that do not span to the beginning of the line are ignored.
 * If the cursor is on the edge of a soft tab, then the left/right arrow keys move the cursor as if the soft tabs were tabs.
 * If the cursor is in the middle of a soft tab, then the left/right arrow keys move the cursor as if the soft tab is multiple spaces until either end of the soft tab is reached.
-* If `astn_enable_line_nav` is set to true in settings then the up/down arrow keys will also treat soft tabs in a similar manner.
+* If `enable_line_nav` is set to true in plugin settings then the up/down arrow keys will also treat soft tabs in a similar manner.
 * The above modifications are applied even in the case when the cursor is making a text selection.
 * The above modifications will not be applied if there are multiple active cursors.
 
