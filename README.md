@@ -6,9 +6,16 @@ In Sublime Text, soft tabs (multiple spaces used as tabs) require as many arrow 
 
 Set `enable_line_nav` to `true` in Atomic Soft Tab Nav plugin settings (access preferences via Command Palette or through the Preferences menu item) to enable atomic soft tabs when navigating by lines:
 
-![With 'astn_enable_line_nav' True Demo](https://raw.githubusercontent.com/ruiokada/sublime-text-atomic-soft-tab-nav/assets/demo-by-lines.gif)
+![With 'enable_line_nav' True Demo](https://raw.githubusercontent.com/ruiokada/sublime-text-atomic-soft-tab-nav/assets/demo-by-lines.gif)
 
-## Manual Install
+## Install
+
+Atomic Soft Tab Nav is available on Sublime Text's Package Control. To install use the command palette commands:
+
+1. Package Control: Install Package
+2. Install Atomic Soft Tab Nav
+
+Otherwise, you can also manually install by cloning this repository into your user packages folder:
 
     git clone https://github.com/ruiokada/sublime-text-atomic-soft-tab-nav.git "Atomic Soft Tab Nav"
 
