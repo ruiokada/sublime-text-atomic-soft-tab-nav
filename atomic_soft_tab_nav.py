@@ -129,20 +129,6 @@ class SoftTabNavListener(sublime_plugin.EventListener):
 
 
 # Window Commands of Preferences
-class AtomicSoftTabNavEditSettingsCommand(sublime_plugin.WindowCommand):
-    def run(self):
-        self.window.run_command(
-            'edit_settings',
-            {
-                "base_file": "${packages}/Atomic Soft Tab Nav/Atomic Soft Tab Nav.sublime-settings",
-                "default":
-                    "// See the left pane for the list of settings and valid values\n"
-                    "{\n"
-                    '    "enable_line_nav": false$0\n'
-                    "}\n"
-            }
-        )
-
 
 class AtomicSoftTabNavSetLineNavSettingsCommand(sublime_plugin.WindowCommand):
     def run(self, **args):
