@@ -16,7 +16,7 @@ class SoftTabNavListener(sublime_plugin.EventListener):
         if not self.view_settings.get('translate_tabs_to_spaces'):
             return None
 
-        if (command_name != "move"):
+        if command_name != "move":
             return None
 
         selection = view.sel()
