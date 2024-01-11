@@ -36,7 +36,7 @@ class SoftTabNavListener(sublime_plugin.EventListener):
             """
             Handles the case when the cursor will enter a soft tab.
              The author is unaware of how to cancel keyboard input
-             commands so here we programatically move the cursor to the
+             commands, so here we programatically move the cursor to the
              next edge of soft tab the cursor will enter and then move the
              cursor back/forward one character to "cancel" the original
              left/right key input.
@@ -80,7 +80,7 @@ class SoftTabNavListener(sublime_plugin.EventListener):
         elif args.get('by') == 'lines' and self.plugin_settings.get('enable_line_nav'):
             """
             Handles the case when the cursor moves onto a soft tab
-             from a line above or below. In this case we programatically
+             from a line above or below. In this case, we programatically
              move the cursor to the next line and then replace the
              original keyboard input with left/right keydown depending on
              where the cursor is in the current soft tab block. This will
@@ -129,7 +129,6 @@ class SoftTabNavListener(sublime_plugin.EventListener):
 
 
 # Window Commands of Preferences
-
 class AtomicSoftTabNavSetLineNavSettingsCommand(sublime_plugin.WindowCommand):
     def run(self, **args):
         if 'enable' in args:
