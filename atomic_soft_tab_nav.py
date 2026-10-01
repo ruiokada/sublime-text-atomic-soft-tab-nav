@@ -13,6 +13,8 @@ class SoftTabNavListener(sublime_plugin.EventListener):
         self.plugin_settings = sublime.load_settings('Atomic Soft Tab Nav.sublime-settings')
 
     def on_text_command(self, view, command_name, args):
+        if self.view_settings is None:
+            self.view_settings = view.settings()
         if not self.view_settings.get('translate_tabs_to_spaces'):
             return None
 
